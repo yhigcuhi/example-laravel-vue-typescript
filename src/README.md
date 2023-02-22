@@ -34,6 +34,13 @@ npm install vue @vitejs/plugin-vue lodash bootstrap typescript @types/lodash --s
 - route/web.php / を app.blade.phpへ
 - app.blade.phpに @vite(app.tsとか)と マウント先記載
 
+## ブランチの違い について...
+### branch features-pattern
+[機能ごとを趣においたディレクトリ構成パターン](https://github.com/alan2207/bulletproof-react)
+### branch atomic-design-pattern
+[atomics デザインを趣においたディレクトリ構成パターン](https://qiita.com/d2cid-kimura/items/4aee84da42131f40b808#%E3%83%87%E3%82%A3%E3%83%AC%E3%82%AF%E3%83%88%E3%83%AA%E6%A7%8B%E6%88%90)
+### branch XXX
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
