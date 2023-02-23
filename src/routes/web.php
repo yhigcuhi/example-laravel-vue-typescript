@@ -17,5 +17,6 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-// 画面の一覧
-Route::get('/', fn() => view('app'))->name('dashboard');
+// 画面 一旦SPAとして組み込む (どの画面でも app.bladeになるようにする
+Route::get('/{any}', function () { return view('app'); })->where('any', '.*');
+
