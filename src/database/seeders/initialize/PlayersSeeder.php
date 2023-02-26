@@ -4,6 +4,7 @@ namespace Database\Seeders\initialize;
 
 use App\Enums\Gender;
 use App\Models\Players;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 
 class PlayersSeeder extends Seeder
@@ -34,6 +35,8 @@ class PlayersSeeder extends Seeder
                 'first_name_kana' => 'けん',
                 'belong_team_cd' => '001', // 所属チームコード外部キー
                 'gender' => Gender::MEN->value,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'last_name' => '村上',
@@ -42,6 +45,8 @@ class PlayersSeeder extends Seeder
                 'first_name_kana' => 'じゅん',
                 'belong_team_cd' => '001', // 所属チームコード外部キー
                 'gender' => Gender::MEN->value, // 性別(Enum)
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'last_name' => '鈴木',
@@ -50,6 +55,8 @@ class PlayersSeeder extends Seeder
                 'first_name_kana' => 'たろう',
                 'belong_team_cd' => '001', // 所属チームコード外部キー
                 'gender' => Gender::MEN->value, // 性別(Enum)
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'last_name' => '丸山',
@@ -58,6 +65,8 @@ class PlayersSeeder extends Seeder
                 'first_name_kana' => 'かなこ',
                 'belong_team_cd' => '001', // 所属チームコード外部キー
                 'gender' => Gender::WOMEN->value, // 性別(Enum)
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'last_name' => '二階堂',
@@ -66,6 +75,8 @@ class PlayersSeeder extends Seeder
                 'first_name_kana' => 'あき',
                 'belong_team_cd' => '002', // 所属チームコード外部キー
                 'gender' => Gender::WOMEN->value, // 性別(Enum)
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ];
     }

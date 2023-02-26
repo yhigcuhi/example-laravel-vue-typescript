@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // 選手系
 Route::group(['prefix' => '/players', 'as' => 'api.players.'], function() {
     Route::get('/', [PlayerController::class, 'list'])->name('list'); // 選手一覧
+    Route::post('/', [PlayerController::class, 'post'])->name('store'); // 選手登録
     Route::get('/{id}/schedules', [PlayerController::class, 'schedules'])->name('schedules'); // 選手予定表 一覧
 });
 

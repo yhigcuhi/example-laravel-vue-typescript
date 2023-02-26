@@ -23,6 +23,17 @@ class TeamRepositoryImpl implements TeamRepository
     }
 
     /**
+     * 指定キー検索
+     * @param string $team_cd 検索キー
+     * @return Teams|null 検索結果
+     */
+    public function findById(string $team_cd): ?Teams
+    {
+        // 指定キー検索
+        return self::makeQueryBuilder(['team_cd' => $team_cd])->first();
+    }
+
+    /**
      * 検索 Builder生成
      * @param array<string, mixed>|null $conditions 検索条件
      * @return Builder 検索Builder

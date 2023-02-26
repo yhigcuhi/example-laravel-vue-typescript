@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
+use App\Exceptions\InternalServerException;
+use App\Exceptions\MyHttpException;
+use App\Http\Requests\CreatePlayerRequest;
 use App\Services\PlayerScheduleService;
 use App\Services\PlayerService;
 use App\ValueObjects\PlayerId;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 /**
  * 選手コントローラー
@@ -38,6 +43,39 @@ final class PlayerController extends Controller
 
         // 選手一覧 取得
         return response()->json($this->service->getAll());
+    }
+
+    /**
+     * 選手登録
+     * @param CreatePlayerRequest $request 登録リクエスト
+     * @return JsonResponse 結果
+     */
+    public final function post(CreatePlayerRequest $request): JsonResponse
+    {
+        // バリデーション
+        $validate = $request->validated();
+        // 選手登録実行
+        try {
+            // トランザクション開始
+            DB::beginTransaction();
+            // 選手登録実行
+            $result = $this->service->create($validate);
+            // コミット
+            DB::commit();
+            // 結果返却
+            return response()->json($result);
+        // エラー
+        } catch (MyHttpException $e) { // 独自例外
+            // エラーハンドリグ
+            DB::rollBack(); // ロールバック
+            Log::error($e->getMessage()); // エラーログ
+            throw $e; // そのまま
+        } catch (Throwable $e) { // その他
+            // エラーハンドリグ
+            DB::rollBack(); // ロールバック
+            Log::error($e->getMessage()); // エラーログ
+            throw new InternalServerException($e->getMessage(), null, $e);
+        }
     }
 
     /**

@@ -32,4 +32,14 @@ class TeamService
     {
         return $this->repository->getAll();
     }
+
+    /**
+     * 指定キー検索
+     * @param string $team_cd 検索キー
+     * @return Teams|null 検索結果
+     */
+    public function findById(string $team_cd): ?Teams
+    {
+        return $this->repository->findById($team_cd);
+    }
 }
