@@ -6,7 +6,7 @@ import {Card, Label} from '@/components/elements'
 import {FormGroup} from '@/components/form';
 import {TeamSelectBox} from '@/features/teams';
 
-// 画面引数
+// // 画面引数
 const props = withDefaults(defineProps<{ modelValue?: string|null }>(), {
         // 初期表示 モデル値
         modelValue: null,
@@ -25,8 +25,7 @@ const selected = computed({
     <Card title="選手 検索">
         <template #default>
             <FormGroup>
-                <Label>所属 チーム</Label>
-                <TeamSelectBox v-model="selected" />
+                <TeamSelectBox v-model="selected" default-option="チームを選択してください"/>
             </FormGroup>
         </template>
     </Card>

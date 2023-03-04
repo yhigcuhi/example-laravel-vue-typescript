@@ -3,5 +3,5 @@ import SelectBox from './SelectBox.vue';
 
 // export するものだけ
 export {
-    SelectBox
+    SelectBox,
 }

@@ -1,13 +1,17 @@
 <script setup lang="ts">
+/* import vue*/
+import {computed} from 'vue';
+/* import vuex*/
+import {useStore} from '@/store';
 /* import 部品*/
 import {Toggle} from '@/components/elements';
-import {computed} from 'vue';
 
 /* イベント定義*/
 const emits = defineEmits(['clickToggle'])
 /* 内部利用変数 */
-// TODO:画面表示名 TODO:今後 ルーターなどから？かな
-const title = computed(() => 'TODO:表示画面名 Stateかな'); // タイトル名
+// グローバルストア
+const store = useStore()
+const title = computed(() => store.state.header.title); // タイトル名
 /* イベントハンドリング*/
 const handleOnClickToggle = () => emits('clickToggle'); // トグルクリック
 </script>

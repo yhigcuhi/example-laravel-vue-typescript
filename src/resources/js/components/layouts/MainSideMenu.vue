@@ -28,13 +28,13 @@ const props = withDefaults(defineProps<Props>(), {
                 <!-- サイドメニュー:リンク -->
                 <li class="nav-item">
                     <router-link :to="{ name: 'home'}" class="nav-link">
-                        <Icon icon="house" class="mr-3" />Home
+                        <Icon icon="house" class="mr-3" />ホーム
                     </router-link>
                 </li>
                 <!-- サイドメニュー:リンク -->
                 <li class="nav-item">
                     <router-link :to="{ name: 'players'}" class="nav-link">
-                        <Icon icon="users" class="mr-3" />Players
+                        <Icon icon="users" class="mr-3" />選手一覧
                     </router-link>
                 </li>
             </ul>

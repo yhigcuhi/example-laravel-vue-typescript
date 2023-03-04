@@ -1,13 +1,13 @@
 <script setup lang="ts">
 /* import vue*/
-import {computed} from 'vue';
+import {computed, onMounted} from 'vue';
 /* import 部品*/
-import {Card, Label, Table} from '@/components/elements'
+import {Card, Label, Table, Append} from '@/components/elements'
 import {TeamEntity} from '@/features/teams/types';
 /* import store*/
 import {useStore} from '@/store';
 /* import util*/
-import {map} from 'lodash';
+import {map, sortBy} from 'lodash';
 /* import type*/
 import {PlayerEntity} from '../types';
 import {Gender} from '../enums/Gender';
@@ -24,12 +24,14 @@ const store = useStore();
 const data = computed(() => {
     // 所属選手
     const players: PlayerEntity[] = !props.belong_team_cd ? store.state.players.all : store.getters['players/findByBelongTeamCd'](props.belong_team_cd);
+    // ソート
+    const playersSortBy = sortBy(players, ['belong_team_cd', 'id']);
     // 表示データへ整形
-    return map(players, ({belong_team: {name}, last_name, first_name, last_name_kana, first_name_kana, gender}) => (
+    return map(playersSortBy, ({belong_team: {name}, last_name, first_name, last_name_kana, first_name_kana, gender}) => (
         {
             team: name, // 所属チーム名
             name: `${last_name} ${first_name} (${last_name_kana} ${first_name_kana})`, // 選手名
-            gender: Gender.valueOf(gender), // TODO:性別
+            gender: Gender.valueOf(gender), // 性別
         }
     ));
 });
@@ -47,7 +49,9 @@ store.dispatch('players/fetchAll');
                 <!-- カード ヘッダーメニュー -->
                 <span class="d-flex align-items-center justify-content-between">
                     <!-- 選手追加ボタン -->
-                    <button class="px-4 py-2 text-center border rounded text-white" :class="`bg-info`">+ TEST</button>
+                    <router-link :to="{ name: 'players.create', query: {belong_team_cd: props.belong_team_cd} }">
+                        <Append text="選手登録" />
+                    </router-link>
                 </span>
             </div>
         </template>

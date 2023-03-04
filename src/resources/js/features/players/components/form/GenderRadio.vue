@@ -10,5 +10,5 @@ const options = computed(() => ({MEN: Gender.MEN, WOMEN: Gender.WOMEN}));
 </script>
 <template>
     <!-- 性別のの入力 -->
-    <Radio validation="required" :options="options"/>
+    <Radio validation="required" :options="options" option-class="mr-4" wrapper-class="form-check-inline" inner-class="mr-2"/>
 </template>

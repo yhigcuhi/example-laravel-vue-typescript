@@ -1,11 +1,12 @@
 <script setup lang="ts">
 // ダッシュボード画面
 /* import 部品 */
-import {Row} from '@/components/elements';
+import {Header, Row} from '@/components/elements';
 import IconCard from '../components/IconCard.vue';
 </script>
 <template>
     <div class="mx-auto">
+        <Header title="ホーム" />
         <!-- ダッシュボードメニュー -->
         <Row>
             <span class="col-3 mr-4">

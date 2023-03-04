@@ -11,8 +11,8 @@ type Props = {
 const props = defineProps<Props>();
 
 // 入力補完
-// デフォルトデザイン反映 TODO:radioのデザイン...
-const classes = computed(() => ({...props.classes}))
+// デフォルトデザイン反映
+const classes = computed(() => ({option: 'form-check form-check-inline text-center mr-2', ...props.classes}))
 </script>
 <template>
     <FormKit :classes="classes" type="radio"/>

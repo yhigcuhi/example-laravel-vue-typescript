@@ -7,6 +7,7 @@ import { createStore, Store, useStore as baseUseStore } from 'vuex';
 /* import modules */
 import {players} from '@/features/players';
 import {teams} from '@/features/teams';
+import header from './modules/header'; // 共通モージュール: ヘッダー操作
 
 // RootStateの型定義
 export type RootState = {};
@@ -22,6 +23,7 @@ export const store = createStore<RootState>({
         players,
         teams,
         // 共通系
+        header,
         // alert(error, success)とか toastとか ref: creative-timのvue-material-dashboard-laravel-masterが役に立つかな
     }
 });

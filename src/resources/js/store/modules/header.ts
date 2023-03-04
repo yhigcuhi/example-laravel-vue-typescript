@@ -1,46 +1,39 @@
 /*********************************************
- * Teams Vuex 管理
+ * Header Vuex 管理
  *********************************************/
-/* import api*/
-import {getTeams} from '../../api'
 /* import util*/
-import {isEmpty, find} from 'lodash';
+import {isEmpty} from 'lodash';
 /* for types*/
 import {ActionTree, GetterTree, MutationTree, Module} from 'vuex';
-import {TeamEntity} from '../../types';
 import {RootState} from '@/store';
 
 /*********************************************
  * store 定義
  *********************************************/
 // state 定義
-type State = { all: TeamEntity[] };
+type State = {title: string};
 // 管理物
 const state : State = {
-    all: [], // チーム一覧
+    title: 'サンプル アプリ'// デフォルトタイトル
 }
 // getter
 const getters: GetterTree<State, RootState> = {
-    // 存在判定
-    exists: (state: State) => (_team_cd: any) => !isEmpty(find(state.all, ({team_cd}) => team_cd === _team_cd)),
-
 };
 // getter
 const actions: ActionTree<State, RootState> = {
-    // 一覧 最新化
-    async fetchAll({state, commit}) {
+    // タイトル更新
+    async updateHeaderTitle({commit}, title) {
         // 前提条件
-        if (state.all.length) return; // 取得済み 不要
-
-        // 一覧 GET -> 内部状態変更
-        const response = await getTeams(); // 一覧 取得
-        if (response?.data?.length) commit('setTeams', response.data); // 内部状態変更
+        if (isEmpty(title)) return; // 空対策
+        // ヘッダータイトル更新
+        commit('setTitle', title);
     },
+
 };
 // mutations
 const mutations: MutationTree<State> = {
-    // 一覧 設定
-    setTeams: (state: State, all: State['all']) => {state.all = all; },
+    // ヘッダータイトル 設定
+    setTitle: (state: State, title: string) => {state.title = title;},
 }
 
 // export module

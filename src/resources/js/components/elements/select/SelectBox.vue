@@ -1,45 +1,34 @@
 <script setup lang="ts">
 /* import vue*/
-import {computed} from 'vue';
+import {computed, PropType} from 'vue';
+/* import util*/
+import {isArray, isEmpty} from 'lodash';
+/* for types*/
+import {FormKitOptionsItem, FormKitOptionsProp} from '@formkit/inputs';
+import {FormKitClasses} from '@formkit/core';
 
 /* type 定義 */
-// Optionの形
-type OptionObject = { text: string, value: string|number|null, disabled?: boolean };
-// 画面引数型
+// 画面表示引数
 type Props = {
-    modelValue?: OptionObject['value'], // モデル値 (v-model)
-    defaultOption?: OptionObject, // (任意) デフォルト オプション
-    options?: OptionObject[], // オプション一覧
+    defaultOption?: FormKitOptionsItem|string // デフォルト選択値オプション
+    options?: FormKitOptionsProp // 選択肢
+    classes?: Record<string, string | Record<string, boolean> | FormKitClasses> // デザイン
 }
-// 画面引数
-const props = withDefaults(defineProps<Props>(), {
-    // 初期表示 モデル値
-    modelValue: null,
-    // デフォルトオブション
-    defaultOption: () => ({text: '', value: null}),
-    // オプション一覧
-    options: () => [],
-})
-;
-// input 内容変更 → モデルの値 通知 処理定義
-const emit = defineEmits(['update:modelValue']);
-// 選択 値
-const selected = computed({
-    // getter
-    get() { return props.modelValue; },
-    // setter
-    set(val) { emit('update:modelValue', val); }, // 値変更通知
+const props = defineProps<Props>();
+
+// 入力補完
+const options = computed(() => { // 選択オプション補完
+    // 前提条件
+    if (isEmpty(props.defaultOption)) return props.options; // デフォルトオプションない場合 何もしない
+    // デフォルトオプション補完
+    const defaultOption = typeof props.defaultOption !== 'string' ? props.defaultOption : {value: null, label: props.defaultOption, class: 'text-secondary'};
+    // 選択肢の一覧の先頭に デフォルトオプション追加
+    return isArray(props.options) ? [defaultOption, ...props.options] : {...defaultOption, ...props.options};
 });
+// デフォルトデザイン反映
+const classes = computed(() => ({input: 'form-control border-input', ...props.classes}))
 </script>
 
 <template>
-    <!-- セレクトボックス -->
-    <select v-model="selected" class="form-control border-input">
-        <!-- デフォルト オプション -->
-        <option :value="props.defaultOption.value" :disabled="props.defaultOption.disabled ?? true">{{ props.defaultOption.text }}</option>
-        <!-- 各 オプション -->
-        <option v-for="(option, index) in props.options" :key="index" :value="option.value" :disabled="option.disabled ?? false">
-            {{ option.text }}
-        </option>
-    </select>
+    <FormKit type="select" :options="options" :classes="classes"/>
 </template>
